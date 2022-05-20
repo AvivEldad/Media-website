@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src = "../js/updatelogic.js"></script> 
+    
+    <title>Update</title>
+</head>
+<body>
+    <div class="col-sm-6 col-sm-offset-3">
+    <h1 class="display-1">Update Media</h1>
+    <h2>Update the fileds you want</h2>
+    <h3>(You don't have to update all of them)</h3>
+    <form name='add_form' id="target">
+        <div class="form-group">
+            <label for="nameInput">Media Name</label><br>
+            <input type="text" class="form-control mname" id="nameInput" pattern="[a-zA-Z0-9, '-:]*">
+        </div>
+        <div class="form-check">
+            <label for="picInput">Picture(url)</label><br>
+            <input type="url" class="form-control pic" id="picInput">
+        </div>
+        <div class="form-check">
+            <label for="directorInput">Director</label><br>
+            <input type="text" class="form-control dname" id="directorInput" pattern="[a-zA-Z, ,-]*">
+        </div>
+        <div class="form-check">
+            <label for="rdateInput">Release date</label><br>
+            <input type="date" class="form-control rdate" id="rdateInput">
+        </div>
+        <div class="form-check">
+            <label for="ratingInput">Rating</label><br>
+            <input type="number" step=1 class="form-control rating" id="ratingInput" min=1 max="5">
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="seriesCheck" value="option1">
+            <label class="form-check-label" for="inlineRadio1">Series</label>
+        </div>
+
+        <div id="res" style="display:none">
+            <div class="form-check">
+                <label for="seasonInput">how many seasons?</label><br>
+                <input type="number" step=1 class="form-control rating" id="seasonInput" >
+            </div>
+            <div id = "episodes">
+
+            </div>
+        </div>
+    
+        <button type="submit" class="btn btn-primary" id="button">Submit</button>
+       
+      </form>
+    </div>
+</body>
+</html>

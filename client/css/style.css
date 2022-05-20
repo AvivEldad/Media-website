@@ -1,0 +1,124 @@
+html {
+    scroll-behavior: smooth;
+  }
+  
+  * {
+    background: #0a192f;
+    color: #ebf5ee;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    box-shadow: 0 3px 5px rgba(255, 255, 255, 0.1);
+    font-style: oblique;
+  }
+  
+  
+  nav h3 {
+    color: rgb(255, 255, 255);
+    border: solid 2px rgb(255, 255, 255);
+    border-radius: 4px;
+    font-weight: lighter;
+  }
+
+  nav h1{
+    color: gold;
+    font-weight: bold;
+    margin-right: 43%;
+    
+  }
+
+  main{
+
+    padding-top: 12px;
+    width: 100%;
+  }
+
+  main .container{
+    display: flex;
+    
+    align-items: center;
+  }
+
+  main .container .container-fluid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  
+    
+    
+  }
+
+  main .container .container-fluid .create{
+    text-decoration: none;
+    border: solid 2px #0b7189;
+    color: #0b7189;
+    width: 8%;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: large;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  main .container .container-fluid .create:hover {
+    border: solid 2px #b4b9cc;
+    color: #b4b9cc;
+  }
+
+  .table{
+    text-align: center;
+   
+  }
+
+  .table thead th{
+    cursor: pointer;
+    text-align: center;
+    
+  }
+  .table tr{
+    width: 100%;
+  }
+
+
+  .operationsDel, .operationsUp, .operationsAdd, .operationsAct{
+    text-decoration: none;
+    border: solid 2px #efe9f4;
+    color: #efe9f4;
+    border-radius: 4px;
+    font-weight: bold;
+    margin: 4px;
+    padding: 2px;
+    
+  }
+
+  .operationsDel:hover, .operationsUp:hover, .operationsAdd:hover, .operationsAct:hover {
+    border: solid 2px #C4E7D4;
+    color: #C4E7D4;
+  }
+  
+
+  .icon {
+    width: 100px;
+    height: 150px;
+    border-radius: 8px;
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+   
+  }
+
+
+ .title-class, .htmlContainer-class, .actions-class{
+    background: #ffffff;
+  }
