@@ -1,5 +1,5 @@
 /**
- * Ex3 Best2Watch
+ * Ex5 Best2Watch
  * Aviv Eldad
  * This file is the server file. Include all the routes and initialization
  */
@@ -10,7 +10,8 @@ bodyParser = require('body-parser'),
     path = require('path'),
     fs = require('fs'),
     cors = require('cors'),
-    routers = require('./server/routes/routes.js');
+    routers = require('./server/routes/routes.js'),
+    mongoose = require('./server/db/mongoose');
 const port = 3001
 
 const app = express()

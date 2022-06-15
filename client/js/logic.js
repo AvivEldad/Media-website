@@ -34,6 +34,7 @@ function getMedia() {
       updateDetails();
       addActor();
       watchList();
+      addActorToList();
     },
     error: function (error) {
       console.log(error.responseText);
@@ -75,6 +76,17 @@ function deleteMedia() {
       },
       error: function (error) {
         console.log(error.responseText);
+        Swal.fire({
+          title:  "<h4 style='background-color:white;color:black'> ERROR</h4>",
+          html: `<h6 style='background-color:white;color:black'> ${error.responseText}</h6>`,
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.href = "/list"
+          } else if (result.isDenied) {
+            location.href = "/list"
+          }
+        })
       },
     });
   });
@@ -92,12 +104,10 @@ function updateDetails() {
 }
 
 /**
- * The function display a form to add a new actor to a media.
- * After submit, the function invoke an Ajax call to add the actor to the media
+ * The function add a new actor to the actors list
  */
-function addActor() {
-  $(".operationsAdd").click(function () {
-    let id = $(this).parent().parent().find("th").text();
+function addActorToList() {
+  $(".addActorToList").click(function () {
     Swal.fire({
       title:
         "<h4 style='background-color:white;color:black'> Add Actor Form</h4>",
@@ -117,11 +127,9 @@ function addActor() {
         const site = Swal.getPopup().querySelector("#site").value;
         if (!name || !picture || !site) {
           Swal.showValidationMessage(`Please enter all details`);
-        }
-        else if(!/^[a-zA-Z, ,-]*$/.test(name)){
+        } else if (!/^[a-zA-Z, ,-]*$/.test(name)) {
           Swal.showValidationMessage(`Please enter valid name`);
-        }
-         else {
+        } else {
           try {
             let myURL = new URL(picture);
             let myURL2 = new URL(site);
@@ -141,9 +149,9 @@ function addActor() {
             }`;
         console.log(res);
         $.ajax({
-          url: `/media/${id}/actors`,
+          url: `/actors`,
           contentType: "application/json",
-          type: "PUT",
+          type: "POST",
           datatype: "json",
           data: res,
           encode: true,
@@ -152,11 +160,135 @@ function addActor() {
           },
           error: function (error) {
             console.log(error.responseText);
+            Swal.fire({
+              title:  "<h4 style='background-color:white;color:black'> ERROR</h4>",
+              html: `<h6 style='background-color:white;color:black'> ${error.responseText}</h6>`,
+              confirmButtonText: 'Ok',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.href = "/list"
+              } else if (result.isDenied) {
+                location.href = "/list"
+              }
+            })
           },
         });
       }
     });
   });
+}
+
+/**
+ * The function get all the actors from the list
+ * return: string of actors list
+ */
+function getActors() {
+  let ActorsRes = "";
+  $.ajax({
+    url: "http://localhost:3001/actors",
+    type: "GET",
+    async: false,
+    success: function (response) {
+      console.log(response);
+      ActorsRes += `<table class='table' id='actorsdisplay'>
+                  <thead>
+                         <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Add</th>
+                          </tr>
+                  </thead>
+                   <tbody>`;
+      for (let i = 0; i < response.length; i++) {
+        ActorsRes += `
+                <tr>
+                <th scope="row" style="background:#4A4A4A;">${response[i].name}</th>
+                <td style="background:#4A4A4A;"><button class="operationsAddToMedia" style="border:solid 2px rgb(255, 255, 255);   border-radius: 4px; padding:2px" id="${response[i]._id}">Add</button></td>
+              </tr>`;
+      }
+      ActorsRes += `</tbody></table>`;
+    },
+    error: function (error) {
+      console.log(error.responseText);
+    },
+  });
+  return ActorsRes;
+}
+
+/**
+ * The function display a list of actors that on the DB
+ * After click on add the actor will be added to the actors
+ * list of the movie
+ */
+function addActor() {
+  $(".operationsAdd").click(function () {
+    let id = $(this).parent().parent().find("th").text();
+    const list = getActors();
+    Swal.fire({
+      title: "<h4 style='background-color:white;color:black'> Add Actor</h4>",
+      html: list,
+      confirmButtonText: "OK",
+      focusConfirm: false,
+      customClass: {
+        title: "title-class",
+        htmlContainer: "htmlContainer-class",
+        actions: "actions-class",
+      },
+    });
+    addToMedia(id);
+  });
+}
+
+/**
+ * The function invoke ajax call to add actor to the actors
+ * list of the movie
+ */
+function addToMedia(mediaId) {
+  $(".operationsAddToMedia").click(function () {
+    let actorId = this.id;
+    $.ajax({
+      url: `http://localhost:3001/media/${mediaId}/actors`,
+      type: "PUT",
+      data: { _id: actorId },
+      success: function (response) {
+        console.log(response);
+        location.href = "/list";
+      },
+      error: function (error) {
+        console.log(error.responseText);
+        Swal.fire({
+          title:  "<h4 style='background-color:white;color:black'> ERROR</h4>",
+          html: `<h6 style='background-color:white;color:black'> ${error.responseText}</h6>`,
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.href = "/list"
+          } else if (result.isDenied) {
+            location.href = "/list"
+          }
+        })
+      },
+    });
+  });
+}
+
+/**
+ * The function invoke ajax call to get actors details
+ */
+function getActor(id){
+  let actor = "";
+  $.ajax({
+    url: `http://localhost:3001/actors/${id}`,
+    type: "GET",
+    async: false,
+    success: function (response) {
+      actor = response;
+    },
+    error: function (error) {
+      console.log(error.responseText);
+      
+    },
+  });
+  return actor;
 }
 
 /**
@@ -170,6 +302,7 @@ function watchList() {
       url: `http://localhost:3001/media/${id}`,
       type: "GET",
       success: function (response) {
+
         let actorsTable = `<table class='table' id='actorsTable'>
                           <thead>
                             <tr>
@@ -180,11 +313,13 @@ function watchList() {
                           </thead>
                           <tbody>`;
         if (response.actors) {
+          let a;
           for (actor in response.actors) {
+            a = getActor(response.actors[actor]);
             actorsTable += `<tr>
-            <th scope="row">${response.actors[actor].name}</th>
-            <td> <img src="${response.actors[actor].picture}" alt="actor pic" class="icon"></td>
-            <td> <button class="deleteAct" style="border:solid 2px rgb(255, 255, 255);  border-radius: 4px; padding:2px" id="delete_actor${response.actors[actor].name}">Delete</button></td>
+            <th scope="row">${a.name}</th>
+            <td> <img src="${a.picture}" alt="actor pic" class="icon"></td>
+            <td> <button class="deleteAct" style="border:solid 2px rgb(255, 255, 255);  border-radius: 4px; padding:2px" id="${a._id}">Delete</button></td>
           </tr>`;
           }
         }
@@ -204,7 +339,17 @@ function watchList() {
         deleteActor(id);
       },
       error: function (error) {
-        console.log(error.responseText);
+        Swal.fire({
+          title:  "<h4 style='background-color:white;color:black'> ERROR</h4>",
+          html: `<h6 style='background-color:white;color:black'> ${error.responseText}</h6>`,
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.href = "/list"
+          } else if (result.isDenied) {
+            location.href = "/list"
+          }
+        })
       },
     });
   });
@@ -216,9 +361,9 @@ function watchList() {
  */
 function deleteActor(id) {
   $(".deleteAct").click(function () {
-    let name = $(this).parent().parent().find("th").text();
+    let actorId = this.id;
     $.ajax({
-      url: `http://localhost:3001/media/${id}/actors/${name}`,
+      url: `http://localhost:3001/media/${id}/actors/${actorId}`,
       type: "DELETE",
 
       success: function (response) {
@@ -227,6 +372,17 @@ function deleteActor(id) {
       },
       error: function (error) {
         console.log(error.responseText);
+        Swal.fire({
+          title:  "<h4 style='background-color:white;color:black'> ERROR</h4>",
+          html: `<h6 style='background-color:white;color:black'> ${error.responseText}</h6>`,
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.href = "/list"
+          } else if (result.isDenied) {
+            location.href = "/list"
+          }
+        })
       },
     });
   });

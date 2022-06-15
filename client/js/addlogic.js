@@ -72,6 +72,17 @@ function sendReq() {
     },
     error: function (error) {
       console.log(error.responseText);
+      Swal.fire({
+        title:  "<h4 style='background-color:white;color:black'> ERROR</h4>",
+        html: `<h6 style='background-color:white;color:black'> ${error.responseText}</h6>`,
+        confirmButtonText: 'Ok',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.href = "/list"
+        } else if (result.isDenied) {
+          location.href = "/list"
+        }
+      })
     },
   });
 }

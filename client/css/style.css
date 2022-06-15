@@ -74,6 +74,7 @@ html {
   main .container .container-fluid .create:hover {
     border: solid 2px #b4b9cc;
     color: #b4b9cc;
+    cursor: pointer;
   }
 
   .table{
@@ -82,7 +83,7 @@ html {
   }
 
   .table thead th{
-    cursor: pointer;
+    cursor: pointer;cursor: pointer;
     text-align: center;
     
   }
