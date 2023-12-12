@@ -1,12 +1,20 @@
 # Media-website
-A website to watch list of media with operations on the media.
-You can add a new media, delete media from the list, update media, add actor and watch actors list.
-The media arrenged in a table, where the user can sort the table by rating, name or relase date.
-The user can add an actor to the actors list.
-
+This website allows you to manage your media list. You can manage your series, movies, and actors.
+The website supports the CRUD operations for each of the resources.
+The data is displayed in a table, where you can sort it by rating, name, or release date.
+A website to watch a list of media with operations on the media.
 ========
 
-The server side written in Node.js and MongoDB
+The server side is written in Node.js and Express. The server supports the CRUD operations. It has endpoints for each resource. It has validations and error handling.
+
+The data from the server is saved in the MongoDB database.
 
 
-The client side written in html, css, js with jQurey, sweet alert and bootstarp libraries
+The client side is written in HTML, CSS, JavaScript with jQuery, Sweet Alert, and Bootstrap libraries
+
+
+To run the website:
+
+- Run "npm "install" command
+- Run "npm start" command
+- The website is running on "http://localhost:3001"
