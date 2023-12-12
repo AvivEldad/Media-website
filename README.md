@@ -3,7 +3,7 @@ This website allows you to manage your media list. You can manage your series, m
 The website supports the CRUD operations for each of the resources.
 The data is displayed in a table, where you can sort it by rating, name, or release date.
 A website to watch a list of media with operations on the media.
-========
+
 
 The server side is written in Node.js and Express. The server supports the CRUD operations. It has endpoints for each resource. It has validations and error handling.
 
